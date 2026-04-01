@@ -13,9 +13,9 @@ RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --opt
 
 USER root
 COPY --chown=www-data:www-data . /var/www/html
-RUN chmod +x /var/www/html/docker/entrypoint.sh
+
+# Copy our scripts as executable
+COPY --chmod=755 ./docker/entrypoint.d/ /etc/entrypoint.d/
 
 # Switch back to non-root user for security
 USER www-data
-
-ENTRYPOINT ["/var/www/html/docker/entrypoint.sh"]
