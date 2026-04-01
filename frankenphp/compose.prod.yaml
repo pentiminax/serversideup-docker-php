@@ -1,6 +1,6 @@
 services:
   php:
-    image: ghcr.io/pentiminax/serversideup-php:0.4.0
+    image: ghcr.io/pentiminax/serversideup-php:0.5.0
     restart: unless-stopped
     ports:
       - "80:8080"
