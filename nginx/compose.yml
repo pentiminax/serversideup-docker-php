@@ -1,0 +1,14 @@
+services:
+  php:
+    # Choose our PHP version and variation
+    image: serversideup/php:8.3-fpm-nginx
+    # Expose localhost:80 to NGINX's port 8080
+    ports:
+      - 80:8080
+    # Mount current directory to /var/www/html
+    volumes:
+      - ./:/var/www/html
+    # PHP settings that we can override
+    environment:
+      PHP_UPLOAD_MAX_FILE_SIZE: "250M"
+      PHP_OPCACHE_ENABLE: "0"

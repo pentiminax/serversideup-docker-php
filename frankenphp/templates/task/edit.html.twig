@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier — {{ task.title }} — TaskFlow{% endblock %}
+
+{% block body %}
+<div class="max-w-2xl mx-auto">
+
+    {# Breadcrumb #}
+    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-6" aria-label="Fil d'Ariane">
+        <a href="{{ path('app_task_index') }}" class="hover:text-gray-700 transition-colors">Tâches</a>
+        <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        <a href="{{ path('app_task_show', {id: task.id}) }}" class="hover:text-gray-700 transition-colors truncate max-w-32">
+            {{ task.title }}
+        </a>
+        <svg class="w-4 h-4 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+        <span class="text-gray-900 font-medium">Modifier</span>
+    </nav>
+
+    <div class="card p-6">
+        <div class="mb-6">
+            <h1>Modifier la tâche</h1>
+            <p class="text-gray-500 text-sm mt-1 truncate">{{ task.title }}</p>
+        </div>
+        {% include 'task/_form.html.twig' with {btn_label: 'Enregistrer les modifications'} %}
+
+        <div class="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
+            <p class="text-xs text-gray-400">Créée le {{ task.createdAt|date('d/m/Y') }}</p>
+            {% include 'task/_delete_form.html.twig' %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

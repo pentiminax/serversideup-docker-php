@@ -1,0 +1,118 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: "Inter", system-ui, sans-serif;
+
+    --color-primary-50: oklch(97% 0.01 250);
+    --color-primary-100: oklch(93% 0.03 250);
+    --color-primary-200: oklch(87% 0.06 250);
+    --color-primary-300: oklch(79% 0.10 250);
+    --color-primary-400: oklch(70% 0.14 250);
+    --color-primary-500: oklch(60% 0.17 250);
+    --color-primary-600: oklch(52% 0.19 250);
+    --color-primary-700: oklch(44% 0.17 250);
+    --color-primary-800: oklch(36% 0.13 250);
+    --color-primary-900: oklch(28% 0.09 250);
+
+    --animate-fade-in: fade-in 0.2s ease-out;
+    --animate-slide-in-left: slide-in-left 0.25s ease-out;
+    --animate-check-bounce: check-bounce 0.3s ease-in-out;
+}
+
+@keyframes fade-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-left {
+    from { opacity: 0; transform: translateX(-100%); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes check-bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+}
+
+@layer base {
+    body {
+        @apply font-sans antialiased text-gray-900 bg-gray-50;
+    }
+
+    h1 { @apply text-2xl font-bold text-gray-900; }
+    h2 { @apply text-xl font-semibold text-gray-800; }
+    h3 { @apply text-lg font-medium text-gray-800; }
+}
+
+@layer components {
+    .btn-primary {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+               transition-all duration-150 cursor-pointer
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+               bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800
+               focus-visible:ring-primary-500 shadow-sm;
+    }
+    .btn-secondary {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+               transition-all duration-150 cursor-pointer
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+               bg-white text-gray-700 border border-gray-200
+               hover:bg-gray-50 active:bg-gray-100
+               focus-visible:ring-gray-300 shadow-sm;
+    }
+    .btn-danger {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+               transition-all duration-150 cursor-pointer
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+               bg-red-600 text-white hover:bg-red-700 active:bg-red-800
+               focus-visible:ring-red-500 shadow-sm;
+    }
+    .btn-ghost {
+        @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+               transition-all duration-150 cursor-pointer
+               focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2
+               text-gray-600 hover:bg-gray-100 active:bg-gray-200
+               focus-visible:ring-gray-300;
+    }
+    .btn-sm {
+        @apply px-3 py-1.5 text-xs rounded-md;
+    }
+
+    .card {
+        @apply bg-white rounded-xl border border-gray-100 shadow-sm;
+    }
+
+    .badge {
+        @apply inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .input-field {
+        @apply w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 bg-white
+               placeholder:text-gray-400
+               focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500
+               transition-colors duration-150;
+    }
+
+    .stat-card {
+        @apply bg-white rounded-xl border border-gray-100 shadow-sm p-6 flex flex-col gap-1;
+    }
+
+    .nav-link {
+        @apply flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium text-gray-600
+               hover:bg-gray-100 hover:text-gray-900
+               transition-colors duration-150;
+    }
+    .nav-link-active {
+        @apply bg-primary-50 text-primary-700 hover:bg-primary-100 hover:text-primary-800;
+    }
+
+    .filter-pill {
+        @apply px-4 py-1.5 rounded-full text-sm font-medium border transition-colors duration-150;
+    }
+    .filter-pill-active {
+        @apply bg-primary-600 text-white border-primary-600;
+    }
+    .filter-pill-inactive {
+        @apply bg-white text-gray-600 border-gray-200 hover:border-gray-300 hover:text-gray-900;
+    }
+}

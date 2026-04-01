@@ -1,0 +1,79 @@
+<turbo-frame id="task_{{ task.id }}">
+<article class="card border-l-4 {{ task.priority.borderClass() }} p-5 hover:shadow-md transition-shadow duration-200 flex flex-col gap-3 {{ task.isDone() ? 'opacity-60' : '' }}">
+
+    {# Header card #}
+    <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-2 flex-wrap">
+            <span class="badge {{ task.status.colorClass() }}">
+                <span class="w-1.5 h-1.5 rounded-full {{ task.status.dotClass() }}"></span>
+                {{ task.status.label() }}
+            </span>
+            <span class="badge {{ task.priority.colorClass() }}">
+                {{ task.priority.label() }}
+            </span>
+        </div>
+
+        {# Toggle done #}
+        <form action="{{ path('app_task_toggle', {id: task.id}) }}"
+              method="post"
+              data-turbo-frame="task_{{ task.id }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('toggle-task-' ~ task.id) }}">
+            <button type="submit"
+                    class="w-8 h-8 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-200
+                           {{ task.isDone() ? 'bg-green-500 border-green-500 text-white' : 'border-gray-200 text-transparent hover:border-green-400 hover:text-green-400' }}"
+                    aria-label="{{ task.isDone() ? 'Marquer comme à faire' : 'Marquer comme terminé' }}">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    {# Title + description #}
+    <div class="flex-1">
+        <h3 class="font-semibold text-gray-900 leading-tight {{ task.isDone() ? 'line-through text-gray-400' : '' }}">
+            {{ task.title }}
+        </h3>
+        {% if task.description %}
+            <p class="text-sm text-gray-500 mt-1 line-clamp-2">{{ task.description }}</p>
+        {% endif %}
+    </div>
+
+    {# Footer card #}
+    <div class="flex items-center justify-between pt-2 border-t border-gray-50">
+        {# Due date #}
+        {% if task.dueDate %}
+            <div class="flex items-center gap-1.5 text-xs {{ task.isOverdue() ? 'text-red-500 font-medium' : 'text-gray-400' }}">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                {{ task.dueDate|date('d/m/Y') }}
+                {% if task.isOverdue() %} · En retard{% endif %}
+            </div>
+        {% else %}
+            <span class="text-xs text-gray-300">Sans échéance</span>
+        {% endif %}
+
+        {# Actions #}
+        <div class="flex items-center gap-1">
+            <a href="{{ path('app_task_show', {id: task.id}) }}"
+               class="btn-ghost btn-sm"
+               aria-label="Voir la tâche">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                </svg>
+            </a>
+            <a href="{{ path('app_task_edit', {id: task.id}) }}"
+               class="btn-ghost btn-sm"
+               aria-label="Modifier la tâche">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
+</article>
+</turbo-frame>

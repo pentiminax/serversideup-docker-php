@@ -1,0 +1,45 @@
+{{ form_start(form, {attr: {class: 'space-y-5', novalidate: 'novalidate'}}) }}
+
+    <div>
+        {{ form_label(form.title, null, {label_attr: {class: 'block text-sm font-medium text-gray-700 mb-1.5'}}) }}
+        {{ form_widget(form.title) }}
+        {{ form_errors(form.title, {attr: {class: 'text-xs text-red-600 mt-1'}}) }}
+    </div>
+
+    <div>
+        {{ form_label(form.description, null, {label_attr: {class: 'block text-sm font-medium text-gray-700 mb-1.5'}}) }}
+        {{ form_widget(form.description) }}
+        {{ form_errors(form.description, {attr: {class: 'text-xs text-red-600 mt-1'}}) }}
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+            {{ form_label(form.status, null, {label_attr: {class: 'block text-sm font-medium text-gray-700 mb-1.5'}}) }}
+            {{ form_widget(form.status) }}
+            {{ form_errors(form.status, {attr: {class: 'text-xs text-red-600 mt-1'}}) }}
+        </div>
+        <div>
+            {{ form_label(form.priority, null, {label_attr: {class: 'block text-sm font-medium text-gray-700 mb-1.5'}}) }}
+            {{ form_widget(form.priority) }}
+            {{ form_errors(form.priority, {attr: {class: 'text-xs text-red-600 mt-1'}}) }}
+        </div>
+    </div>
+
+    <div>
+        {{ form_label(form.dueDate, null, {label_attr: {class: 'block text-sm font-medium text-gray-700 mb-1.5'}}) }}
+        {{ form_widget(form.dueDate) }}
+        {{ form_errors(form.dueDate, {attr: {class: 'text-xs text-red-600 mt-1'}}) }}
+        <p class="text-xs text-gray-400 mt-1">Optionnel</p>
+    </div>
+
+    <div class="flex items-center gap-3 pt-2">
+        <button type="submit" class="btn-primary">
+            {{ btn_label ?? 'Enregistrer' }}
+        </button>
+        <a href="{{ app.request.headers.get('referer') ?? path('app_task_index') }}"
+           class="btn-secondary">
+            Annuler
+        </a>
+    </div>
+
+{{ form_end(form) }}
