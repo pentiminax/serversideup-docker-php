@@ -16,8 +16,9 @@ COPY --chown=www-data:www-data . /var/www/html
 
 # Build static assets at image build time (not at runtime)
 USER www-data
-RUN php bin/console tailwind:build --minify --env=prod
-RUN php bin/console asset-map:compile --env=prod
+RUN php bin/console importmap:install --env=prod && \
+    php bin/console tailwind:build --minify --env=prod && \
+    php bin/console asset-map:compile --env=prod
 
 # Copy our scripts as executable
 USER root
