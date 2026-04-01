@@ -1,5 +1,6 @@
 docker/db/data/
 var/
+vendor/
 .env.local
 .env.*.local
 .git
