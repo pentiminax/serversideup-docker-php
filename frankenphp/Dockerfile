@@ -1,9 +1,6 @@
 FROM serversideup/php:8.5-frankenphp
 
-# Switch to root to install dependencies and copy files
 USER root
-
-# Install PHP dependencies
 RUN install-php-extensions intl
 
 WORKDIR /var/www/html
