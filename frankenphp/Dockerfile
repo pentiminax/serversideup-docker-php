@@ -14,7 +14,13 @@ RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --opt
 USER root
 COPY --chown=www-data:www-data . /var/www/html
 
+# Build static assets at image build time (not at runtime)
+USER www-data
+RUN php bin/console tailwind:build --minify --env=prod
+RUN php bin/console asset-map:compile --env=prod
+
 # Copy our scripts as executable
+USER root
 COPY --chmod=755 ./docker/entrypoint.d/ /etc/entrypoint.d/
 
 # Switch back to non-root user for security
